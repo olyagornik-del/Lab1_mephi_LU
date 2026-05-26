@@ -5,3 +5,7 @@ venv/
 .idea/
 .vscode/
 .DS_Store
+
+# C build artifacts
+*.o
+lab
