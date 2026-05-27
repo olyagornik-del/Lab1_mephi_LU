@@ -6,7 +6,7 @@
 #include "timing.h"
 #include "experiments.h"
 
-/* 4.1 - время решения одной системы разными методами */
+// 4.1 - время решения одной системы разными методами 
 void experiment_single_system(const int *sizes, int count) {
     printf("\n=== 4.1 Сравнение времени решения одной системы ===\n");
     printf("%-5s %-11s %-11s %-11s %-11s %-11s %-13s %-13s\n",
@@ -27,7 +27,7 @@ void experiment_single_system(const int *sizes, int count) {
         t0 = now_seconds();
         gaussian_partial_pivot(a, b, n, x);
         double t_pivot = now_seconds() - t0;
-        double res_pivot = residual_norm(a, x, b, n);   /* x сейчас от метода с выбором */
+        double res_pivot = residual_norm(a, x, b, n);   // x сейчас от метода с выбором 
 
         double **l = alloc_matrix(n);
         double **u = alloc_matrix(n);
@@ -57,7 +57,7 @@ void experiment_single_system(const int *sizes, int count) {
     }
 }
 
-/* 4.2 - выгода LU при нескольких правых частях */
+// 4.2 - выгода LU при нескольких правых частях 
 void experiment_multiple_rhs(int n, const int *k_values, int count) {
     printf("\n=== 4.2 Экономия времени при множественных правых частях ===\n");
     printf("%-6s %-18s %-11s %-15s %-11s\n",
@@ -75,18 +75,18 @@ void experiment_multiple_rhs(int n, const int *k_values, int count) {
     for (int s = 0; s < count; s++) {
         int k = k_values[s];
 
-        /* k случайных правых частей */
+        // k случайных правых частей 
         double **rhs = malloc(k * sizeof(double *));
         for (int i = 0; i < k; i++)
             rhs[i] = random_vector(n);
 
-        /* Гаусс: каждую систему решаем заново целиком */
+        // Гаусс: каждую систему решаем заново целиком 
         t0 = now_seconds();
         for (int i = 0; i < k; i++)
             gaussian_partial_pivot(a, rhs[i], n, x);
         double t_gauss = now_seconds() - t0;
 
-        /* LU: разложение уже готово, для каждой части - только подстановки */
+        // LU: разложение уже готово, для каждой части - только подстановки 
         t0 = now_seconds();
         for (int i = 0; i < k; i++)
             solve_with_lu(l, u, rhs[i], n, x);
@@ -106,7 +106,7 @@ void experiment_multiple_rhs(int n, const int *k_values, int count) {
     free(x);
 }
 
-/* печать одной строки результатов для эксперимента 4.3 */
+// печать одной строки результатов для эксперимента 4.3 
 static void print_hilbert_row(int n, const char *method, int ok,
                               double rel_err, double res) {
     if (ok == 0)
@@ -115,7 +115,7 @@ static void print_hilbert_row(int n, const char *method, int ok,
         printf("%-4d %-13s %-13s %-13s\n", n, method, "error", "-");
 }
 
-/* 4.3 - точность на матрицах Гильберта */
+// 4.3 - точность на матрицах Гильберта 
 void experiment_hilbert(const int *sizes, int count) {
     printf("\n=== 4.3 Проверка точности на матрицах Гильберта ===\n");
     printf("%-4s %-13s %-13s %-13s\n", "n", "Method", "Rel error", "Residual");
@@ -126,7 +126,7 @@ void experiment_hilbert(const int *sizes, int count) {
         double *x_exact = alloc_vector(n);
         for (int i = 0; i < n; i++)
             x_exact[i] = 1.0;
-        double *b = mat_vec(h, x_exact, n);    /* b = H * x_exact */
+        double *b = mat_vec(h, x_exact, n);    // b = H * x_exact 
         double *x = alloc_vector(n);
 
         int ok = gaussian_no_pivot(h, b, n, x);

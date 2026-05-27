@@ -34,7 +34,7 @@ double *copy_vector(double *b, int n) {
     return r;
 }
 
-/* случайное число из [-1, 1] */
+// случайное число из [-1, 1] 
 static double rand_uniform(void) {
     return 2.0 * rand() / RAND_MAX - 1.0;
 }
@@ -54,7 +54,7 @@ double *random_vector(int n) {
     return v;
 }
 
-/* Hij = 1 / (i + j - 1) при нумерации с 1; у нас индексы с 0 */
+// Hij = 1 / (i + j - 1) при нумерации с 1; у нас индексы с 0 
 double **hilbert_matrix(int n) {
     double **h = alloc_matrix(n);
     for (int i = 0; i < n; i++)
@@ -63,7 +63,7 @@ double **hilbert_matrix(int n) {
     return h;
 }
 
-/* умножение матрицы на вектор */
+// умножение матрицы на вектор 
 double *mat_vec(double **a, double *x, int n) {
     double *r = alloc_vector(n);
     for (int i = 0; i < n; i++) {
@@ -82,7 +82,7 @@ double *vector_sub(double *a, double *b, int n) {
     return r;
 }
 
-/* длинна вектора */
+// длинна вектора 
 double norm2(double *v, int n) {
     double s = 0.0;
     for (int i = 0; i < n; i++)
